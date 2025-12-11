@@ -31,10 +31,11 @@ const BonusesManager: React.FC<BonusesManagerProps> = ({ staff, trips, settings,
         let totalEarned = 0;
         const details = workedTrips.map(t => {
             let amount = 0;
+            // Use fallback if settings are missing (0) to prevent confusion
             if (t.jobType === JobType.MRI) {
-                amount = settings.helperBonusMRI;
+                amount = settings.helperBonusMRI || 0;
             } else if (t.jobType === JobType.CT) {
-                amount = settings.helperBonusCT;
+                amount = settings.helperBonusCT || 0;
             }
             
             totalEarned += amount;
@@ -185,8 +186,15 @@ const BonusesManager: React.FC<BonusesManagerProps> = ({ staff, trips, settings,
                                              <div>
                                                  <p className="font-semibold text-slate-700">{new Date(trip.date).toLocaleDateString('pt-BR')}</p>
                                                  <p className="text-xs text-slate-500">{trip.jobType} - {trip.destination}</p>
+                                                 {/* Debug/Info line for rate used */}
+                                                 <p className="text-[10px] text-slate-400">
+                                                     Taxa: R$ {trip.bonusAmount.toFixed(2)} 
+                                                     {trip.bonusAmount === 0 && ' (Verifique Configurações)'}
+                                                 </p>
                                              </div>
-                                             <span className="font-bold text-green-600">+ R$ {trip.bonusAmount.toFixed(2)}</span>
+                                             <span className={`font-bold ${trip.bonusAmount > 0 ? 'text-green-600' : 'text-slate-400'}`}>
+                                                 + R$ {trip.bonusAmount.toFixed(2)}
+                                             </span>
                                          </div>
                                      ))
                                     }

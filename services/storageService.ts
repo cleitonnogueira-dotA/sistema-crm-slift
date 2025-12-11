@@ -95,7 +95,11 @@ export const deletePayment = (id: string) => {
 
 export const getSettings = (): Settings => {
   const data = localStorage.getItem(KEYS.SETTINGS);
-  return data ? JSON.parse(data) : DEFAULT_SETTINGS;
+  if (!data) return DEFAULT_SETTINGS;
+  
+  // Safe merge to ensure new keys or missing keys in local storage don't break the app
+  const parsed = JSON.parse(data);
+  return { ...DEFAULT_SETTINGS, ...parsed };
 };
 
 export const saveSettings = (settings: Settings) => {

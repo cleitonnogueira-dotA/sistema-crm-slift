@@ -342,7 +342,7 @@ const TripsManager: React.FC<TripsManagerProps> = ({ trips, staff, settings, ref
                 
                 const driverNames = tripDriverIds.map(id => {
                     const d = staff.find(s => s.id === id);
-                    return d ? `${d.name.split(' ')[0]} (${d.vehicleType})` : 'Excluído';
+                    return d ? `${d.name.split(' ')[0]} (${d.vehicleType || 'Veículo'})` : 'Excluído';
                 }).join(', ');
 
                 // Helpers Names
@@ -354,24 +354,25 @@ const TripsManager: React.FC<TripsManagerProps> = ({ trips, staff, settings, ref
 
                 return (
                   <tr key={trip.id} className="hover:bg-slate-50 transition-colors">
-                    <td className="p-4">
+                    <td className="p-4 align-top">
                         <span className={`px-3 py-1 rounded-full text-xs font-bold border ${getStatusColor(trip.status)}`}>
                             {trip.status}
                         </span>
                     </td>
-                    <td className="p-4">
+                    <td className="p-4 align-top">
                         <div className="text-sm font-bold text-slate-700">{trip.clientName}</div>
                         <div className="text-xs text-slate-500">{new Date(trip.date).toLocaleDateString('pt-BR')}</div>
                         {trip.isWeekend && <div className="text-[10px] text-green-600 font-bold uppercase mt-1">Final de Semana</div>}
                     </td>
-                    <td className="p-4">
+                    <td className="p-4 align-top">
                         <div className="text-xs text-slate-500">De: {trip.origin}</div>
                         <div className="text-sm font-medium text-slate-700">Para: {trip.destination}</div>
                         <div className="text-xs text-slate-400 mt-0.5">{trip.distanceKm} km</div>
                     </td>
-                    <td className="p-4">
-                         <div className="text-sm text-slate-700 font-medium">{driverNames || '---'}</div>
-                         <div className="text-xs text-slate-400">{tripDriverIds.length} veículo(s)</div>
+                    <td className="p-4 align-top">
+                         <div className="text-sm text-slate-700 font-medium mb-1">{driverNames || '---'}</div>
+                         <div className="text-xs text-slate-400 mb-2">{tripDriverIds.length} veículo(s)</div>
+                         
                          {tripHelperIds.length > 0 && (
                             <div className="mt-2 pt-2 border-t border-slate-100">
                                 <span className="text-[10px] uppercase font-bold text-slate-400 block mb-0.5">AJUDANTES:</span>
@@ -379,13 +380,13 @@ const TripsManager: React.FC<TripsManagerProps> = ({ trips, staff, settings, ref
                             </div>
                          )}
                     </td>
-                    <td className="p-4 text-right">
+                    <td className="p-4 text-right align-top">
                       <div className="text-blue-900 font-bold text-sm">
                         {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(trip.totalCost)}
                       </div>
                       <div className="text-xs text-slate-400">Frete Total: R$ {trip.driverKmCost?.toFixed(2)}</div>
                     </td>
-                    <td className="p-4 text-center space-x-2">
+                    <td className="p-4 text-center space-x-2 align-top">
                         <button onClick={() => startEdit(trip)} className="text-blue-500 hover:text-blue-700 font-medium text-xs">Editar</button>
                         <span className="text-slate-300">|</span>
                         <button onClick={() => handleDelete(trip.id)} className="text-red-400 hover:text-red-600 font-medium text-xs">Excluir</button>
