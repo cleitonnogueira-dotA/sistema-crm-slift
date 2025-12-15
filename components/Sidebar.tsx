@@ -12,6 +12,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setView }) => {
   
   const navItems: { id: ViewState; label: string; icon: string }[] = [
     { id: 'dashboard', label: 'Dashboard', icon: '📊' },
+    { id: 'budget', label: 'Orçamento Proposta', icon: '📝' },
     { id: 'trips', label: 'Viagens & Fretes', icon: '🚚' },
     { id: 'freights', label: 'Fretes Motoristas', icon: '⛽' }, 
     { id: 'staff', label: 'Gestão de Equipe', icon: '👥' },

@@ -6,6 +6,7 @@ import StaffManager from './components/StaffManager';
 import BonusesManager from './components/BonusesManager';
 import FreightManager from './components/FreightManager';
 import SettingsManager from './components/SettingsManager';
+import BudgetCalculator from './components/BudgetCalculator';
 import { ViewState, Staff, Trip, Settings, Payment } from './types';
 import * as storage from './services/storageService';
 
@@ -33,6 +34,8 @@ const App: React.FC = () => {
     switch (view) {
       case 'dashboard':
         return <Dashboard trips={trips} settings={settings} />;
+      case 'budget':
+        return <BudgetCalculator />;
       case 'trips':
         return <TripsManager trips={trips} staff={staff} settings={settings} refreshData={loadData} />;
       case 'staff':

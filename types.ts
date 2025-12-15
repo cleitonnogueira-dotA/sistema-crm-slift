@@ -64,4 +64,4 @@ export interface Settings {
   logo?: string; // Base64 string for the logo
 }
 
-export type ViewState = 'dashboard' | 'trips' | 'staff' | 'freights' | 'bonuses' | 'settings';
+export type ViewState = 'dashboard' | 'trips' | 'staff' | 'freights' | 'bonuses' | 'settings' | 'budget';
